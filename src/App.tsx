@@ -23,10 +23,10 @@ class App extends React.Component<AppProps, undefined> {
             </Col>
 
             <Col sm={10} smOffset={1}>
-              <PrescriptionForm uiStore={ this.props.observableUiStore } />
+              <PrescriptionForm />
             </Col>
 
-            <LoadFormulationModal uiStore={ this.props.observableUiStore } />
+            <LoadFormulationModal />
           </Row>
         </Grid>
       </div>

@@ -1,16 +1,8 @@
-// import * as React from "react";
-//
-// export interface PatientInfoFormProps { }
-//
-// export const PatientInfoForm = (props: PatientInfoFormProps) => <h1>Hello!</h1>;
-
 import * as React from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap'
+import { Form, FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap';
 
 export interface PatientInfoFormProps { }
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the 'undefined' type.
 export class PatientInfoForm extends React.Component<PatientInfoFormProps, undefined> {
     render() {
         return (

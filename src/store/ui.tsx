@@ -1,18 +1,19 @@
 import * as mobx from 'mobx';
 import { observable, computed } from 'mobx';
 
+import * as api from '../api/index';
+
 interface ObservableUiStoreInterface {
   addFromFormulationModalOpen: Boolean;
   showAddFromFormulationModal(): any;
   hideAddFromFormulationModal(): any;
+
+  ingredientsTypeaheadResults: Array<Object>;
 }
 
 class ObservableUiStore implements ObservableUiStoreInterface {
-	@observable addFromFormulationModalOpen: Boolean = false;
-
-  constructor() {
-      mobx.autorun(() => console.log(this.report));
-  }
+	@observable addFromFormulationModalOpen: boolean = false;
+	@observable ingredientsTypeaheadResults: Array<Object> = [];
 
 	showAddFromFormulationModal = () => {
 		this.addFromFormulationModalOpen = true;
@@ -22,9 +23,16 @@ class ObservableUiStore implements ObservableUiStoreInterface {
 		this.addFromFormulationModalOpen = false;
 	};
 
-  @computed get report() {
-    return `this.addFromFormulationModalOpen: ${this.addFromFormulationModalOpen}`;
-  }
+	fetchIngredients = (query: any) => {
+    api.searchIngredients(query)
+       .then((data) => {
+         this.ingredientsTypeaheadResults = data.ingredients;
+       })
+       .catch(error => {
+         this.ingredientsTypeaheadResults = [];
+       });
+	};
 }
 
-export default ObservableUiStore;
+const ui = new ObservableUiStore();
+export default ui;

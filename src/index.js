@@ -5,12 +5,9 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import App from './App';
 import ObservableFormulationStore from './store/formulations';
-import ObservableUiStore from './store/ui';
 
 const observableFormulationStore = new ObservableFormulationStore();
-const observableUiStore = new ObservableUiStore();
 
-ReactDOM.render(<App observableFormulationStore={ observableFormulationStore }
-                     observableUiStore={ observableUiStore }/>,
+ReactDOM.render(<App observableFormulationStore={ observableFormulationStore } />,
                 document.getElementById('root'));
 registerServiceWorker();
