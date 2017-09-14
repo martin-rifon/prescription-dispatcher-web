@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import './App.css';
 
 import { PatientInfoForm } from './components/PatientInfoForm';
-import { PrescriptionForm } from './components/PrescriptionForm';
+import PrescriptionForm from './components/PrescriptionForm';
 import LoadFormulationModal from './components/LoadFormulationModal';
 
 export interface AppProps { observableFormulationStore: Object, observableUiStore: Object }

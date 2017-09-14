@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl, Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { observe } from 'mobx';
 import { observer } from 'mobx-react';
 
 import ui from '../store/ui';
+import prescription from '../store/prescription';
 
 export interface AddIngredientFormProps { }
 
@@ -37,8 +38,25 @@ const AddIngredientForm = observer(
       ui.fetchIngredients(query);
     }
 
+    addIngredient = () => {
+      let ingredient: any = ui.typeaheadIngredient;
+      ingredient.percentage = ui.typeaheadQuantity;
+      prescription.addIngredient(ingredient);
+    }
+
+    handleTypeaheadChange = (ingredients: any) => {
+      let ingredient = ingredients[0];
+      if (ingredient) {
+        ui.pickIngredient(ingredient);
+      }
+    }
+
+    handleQuantityChange = (quantity: any) => {
+      ui.pickQuantity(parseFloat(quantity.target.value));
+    }
+
     render() {
-      const arrayIngredients = ui.ingredientsTypeaheadResults.slice();
+      const arrayIngredients = ui.typeaheadIngredientsResults.slice();
 
       return (
         <Form horizontal>
@@ -50,9 +68,10 @@ const AddIngredientForm = observer(
               <AsyncTypeahead
                 { ...this.props }
                 onSearch={this._handleSearch}
-                renderMenuItemChildren={ this._renderMenuItemChildren }
+                renderMenuItemChildren={this._renderMenuItemChildren}
                 labelKey="name"
                 options={arrayIngredients}
+                onChange={this.handleTypeaheadChange}
                 placeholder="Choose an ingredient..."
               />
             </Col>
@@ -63,9 +82,18 @@ const AddIngredientForm = observer(
               Quantity:
             </Col>
             <Col sm={9}>
-              <FormControl type="number" />
+              <FormControl
+                type="number"
+                step="0.01"
+                value={ui.typeaheadQuantity}
+                onChange={this.handleQuantityChange}
+              />
             </Col>
           </FormGroup>
+
+          <Button onClick={this.addIngredient} bsStyle="primary">
+            Add ingredient
+          </Button>
         </Form>
       );
     }

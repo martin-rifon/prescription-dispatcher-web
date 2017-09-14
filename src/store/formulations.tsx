@@ -1,20 +1,32 @@
 import * as mobx from 'mobx';
-import { observable, computed } from 'mobx';
+import { observable } from 'mobx';
 
-class ObservableFormulationStore {
+import * as api from '../api/index';
+
+interface ObservableFormulationStoreInterface {
+  fetchFormulations(): void;
+
+  formulations: Array<Object>;
+}
+
+class ObservableFormulationStore implements ObservableFormulationStoreInterface {
 	@observable formulations: Array<Object> = [];
 
   constructor() {
-      mobx.autorun(() => console.log(this.report));
+    this.fetchFormulations();
   }
 
-	@computed get report() {
-		return `this.formulations.length: ${this.formulations.length}`;
-	}
-
-	addFormulation(formulation: Object) {
-		this.formulations.push(formulation);
-	}
+  fetchFormulations = () => {
+    let that = this;
+    api.getFormulations()
+       .then((data: any) => {
+         that.formulations = JSON.parse(data.formulations);
+       })
+       .catch((error: any) => {
+         that.formulations = [];
+       });
+  };
 }
 
-export default ObservableFormulationStore;
+const formulations = new ObservableFormulationStore();
+export default formulations;
