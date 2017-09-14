@@ -7,7 +7,8 @@ export const makeRequest = (url: any, options: any) => {
     options.headers['Content-Type'] = 'application/json';
   }
 
-  return fetch(url, options).then(checkStatus).then(response => response.json());
+  return fetch(url, options).then(checkStatus)
+                            .then(response => response.json());
 };
 
 export const checkStatus = (response: any) => {
