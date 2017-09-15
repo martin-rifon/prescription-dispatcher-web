@@ -3,6 +3,8 @@ import { observable } from 'mobx';
 
 import * as api from '../api/index';
 
+import ui from './ui';
+
 interface ObservablePrescriptionStoreInterface {
   setIngredients(ingredients: Array<Object>): void;
   addIngredient(ingredients: Object): void;
@@ -36,11 +38,7 @@ class ObservablePrescriptionStore implements ObservablePrescriptionStoreInterfac
     const patientInformation = this.patientInformation;
     api.dispathPrescription({ ingredients, patientInformation })
        .then((data: any) => {
-         console.log('success');
-         console.log('');
-         console.log('data');
-         console.log(data);
-         console.log('');
+         ui.downloadPrescriptionLink = data.path;
        })
        .catch((error: any) => {
          console.log('error');

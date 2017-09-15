@@ -5,6 +5,7 @@ import './App.css';
 import { PatientInfoForm } from './components/PatientInfoForm';
 import PrescriptionForm from './components/PrescriptionForm';
 import LoadFormulationModal from './components/LoadFormulationModal';
+import DownloadPrescriptionModal from './components/DownloadPrescriptionModal';
 
 import ui from './store/ui';
 import prescription from './store/prescription';
@@ -47,6 +48,7 @@ class App extends React.Component<AppProps, undefined> {
             </Row>
 
             <LoadFormulationModal />
+            <DownloadPrescriptionModal />
           </Row>
         </Grid>
       </div>

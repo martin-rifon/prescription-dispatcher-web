@@ -12,12 +12,14 @@ interface ObservableUiStoreInterface {
   pickQuantity(quantity: number): void;
   resetQuantity(): void;
   addIngredientToList(ingredient: any): void;
+  clearPrescriptionLink(): void;
 
   addFromFormulationModalOpen: boolean;
   typeaheadIngredientsResults: Array<Object>;
   typeaheadIngredient: Object;
   typeaheadQuantity: number;
   listIngredients: Array<Object>;
+  downloadPrescriptionLink: string;
 }
 
 class ObservableUiStore implements ObservableUiStoreInterface {
@@ -26,6 +28,7 @@ class ObservableUiStore implements ObservableUiStoreInterface {
 	@observable listIngredients: Array<Object> = [];
 	@observable typeaheadIngredient: Object = null;
 	@observable typeaheadQuantity: number = 1;
+	@observable downloadPrescriptionLink: string = null;
 
 	showAddFromFormulationModal = () => {
 		this.addFromFormulationModalOpen = true;
@@ -63,6 +66,10 @@ class ObservableUiStore implements ObservableUiStoreInterface {
 
   resetQuantity = () => {
     this.typeaheadQuantity = 1;
+  };
+
+  clearPrescriptionLink = () => {
+    this.downloadPrescriptionLink = null;
   };
 }
 
